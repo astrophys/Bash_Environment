@@ -96,16 +96,16 @@ Mac:
             \end{itemize}
         \pause
         \bigskip
+        \item \code{PYTHONPATH} : Location python looks for modules (libraries).
+            \begin{itemize}
+                \item Try : \code{echo \$PYTHONPATH}
+            \end{itemize}
+        \bigskip
         \item \code{LD\_LIBRARY\_PATH} : Where shell looks for shared libraries.
             \begin{itemize}
                 \item Try : \code{echo \$LD\_LIBRARY\_PATH}
             \end{itemize}
         \pause
-        \bigskip
-        \item \code{PYTHONPATH} : Location python looks for modules (libraries).
-            \begin{itemize}
-                \item Try : \code{echo \$PYTHONPATH}
-            \end{itemize}
     \pause
     \bigskip
     \item See all environmental variables try : \code{env | less}
@@ -138,6 +138,21 @@ Mac:
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Modules}
+\begin{itemize}
+    \item Modules installed here : \code{/opt/}
+    \pause
+    \bigskip
+    \item Modules files here : \code{/act/modulefiles/}
+\end{itemize}
+\end{frame}
+
+
+
+%%% Make this a section?
+
+
 
 \begin{frame}
 \frametitle{Python Example}
@@ -148,9 +163,13 @@ Mac:
     \pause
     \item Try:
     \begin{itemize}
+        \item \code{module purge}
+        \pause
+        \item Check \code{PATH}, \code{PYTHONPATH}.
+        \pause
         \item \code{which python}
         \pause
-        \item \code{module purge}
+        \item \code{module load python/3.6.5}
         \pause
         \item Check how \code{PATH}, \code{PYTHONPATH} change.
         \pause
@@ -212,19 +231,217 @@ Type "help", "copyright", "credits" or "license" for more info
 \begin{itemize}
     \item Notice when using \code{python/3.6.5} module, numpy is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
     \pause
-    \item
+    \item Many different software utilize environmental variables in a fashion like Python does.
 \end{itemize}
 \end{frame}
 
+%%% Make this a section?
 
 \begin{frame}
-\frametitle{Python}
+\frametitle{Libraries}
 \begin{itemize}
-    \item Notice when using \code{python/3.6.5} module, numpy is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
-    \pause
-    \item
+    \item Libraries save time by providing mechanism to use another person's code.
+    \bigskip
+    \item There are people who've already invented the wheel, so use them.
+    \bigskip
+    \item Powerful, optimized libraries include \code{glibc.so}, \code{lapack.so}, etc.
+    \bigskip
+    \item All software uses libraries. Important concept in managing your software.
 \end{itemize}
 \end{frame}
+
+
+% see : https://stackoverflow.com/questions/12237282/whats-the-difference-between-so-la-and-a-library-files/12237595
+\begin{frame}
+\frametitle{Libraries}
+\begin{itemize}
+    \item Shared Libraries (ending with \code{.so})
+    \pause
+    \begin{itemize}
+        \item Pros : 
+        \begin{itemize}
+            \item Memory footprint is smaller (multiple programs can use same lib simultaneously)
+            \pause
+            \item Libraries loaded at run time. Specified by \code{/etc/ld.so.conf.d/} and \code{LD\_LIBRARY\_PATH}
+            \bigskip
+        \end{itemize}
+        \item Cons : 
+        \begin{itemize}
+            \item Users must install and maintain dependant shared libraries
+            \pause
+            \item Can get surprised by subtle version differences.
+        \end{itemize}
+        \bigskip
+    \pause
+    \end{itemize}
+    \item Static Libraries (ending with \code{.a})
+    \pause
+    \begin{itemize}
+        \item Pros : 
+        \begin{itemize}
+            \item Library is same version as software was built with
+            \bigskip
+        \end{itemize}
+        \item Cons : 
+        \begin{itemize}
+            \item Larger memory footprint.
+            \pause
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Libraries Example}
+Trivial library example 
+\begin{itemize}
+    \item \code{headers.h} : 
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = C, showstringspaces=false]
+    #ifndef HEADERS
+    #define HEADERS
+    int add(int a, int b);
+    int subtract(int a, int b);
+    #endif
+    \end{lstlisting}
+    \endgroup
+    
+    \item \code{add.c} : 
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = C, showstringspaces=false]
+    #include "headers.h"
+    int add(int a, int b){
+        return(a + b);
+    }
+    \end{lstlisting}
+    \endgroup
+    
+    
+    \item \code{subtract.c} : 
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = C, showstringspaces=false]
+    #include "headers.h"
+    int add(int a, int b){
+        return(a - b);
+    }
+    \end{lstlisting}
+    \endgroup
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Libraries Example}
+\begin{itemize}
+    \item Copy 
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    $ cp -rp /gpfs0/scratch/Bash_Environment/codes/ ~/Scratch/
+    \end{lstlisting}
+    \endgroup
+    \pause
+
+    \item Navigate to \code{codes/} and compile with \code{./compile} 
+    \pause
+
+    \item Generates exectuable \code{program}
+    \pause
+
+    \item Library not found!
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    $ ldd program
+	linux-vdso.so.1 =>  (0x00007ffc10f70000)
+	libmymath.so => not found
+	libc.so.6 => /lib64/libc.so.6 (0x00002b6c0f20d000)
+	/lib64/ld-linux-x86-64.so.2 (0x000056347b79f000)
+    \end{lstlisting}
+    \endgroup
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Libraries Example}
+\begin{itemize}
+    \item Try : 
+    \begingroup
+    \tiny
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    $ export LD_LIBRARY_PATH=/some/path/codes/lib.1/:$LD_LIBRARY_PATH
+    $ ldd program
+	linux-vdso.so.1 =>  (0x00007ffc432f6000)
+	libmymath.so => /some/path/codes/lib.1/libmymath.so (0x00002b64eba91000)
+	libc.so.6 => /lib64/libc.so.6 (0x00002b64ebcb5000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000555da7d0b000)
+    \end{lstlisting}
+    \endgroup
+
+    \pause
+    \item Try : 
+    \begingroup
+    \tiny
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    $ export LD_LIBRARY_PATH=/some/path/codes/lib.2/:$LD_LIBRARY_PATH
+    $ ldd program
+	linux-vdso.so.1 =>  (0x00007ffc432f6000)
+	libmymath.so => /some/path/codes/lib.2/libmymath.so (0x00002af711fe1000)
+	libc.so.6 => /lib64/libc.so.6 (0x00002b64ebcb5000)
+	/lib64/ld-linux-x86-64.so.2 (0x0000555da7d0b000)
+    \end{lstlisting}
+    \endgroup
+
+    \pause
+    \item Now run : 
+    \begingroup
+    \tiny
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    $ ./program
+    9 + 2 = 11
+    9 - 2 = 7
+    \end{lstlisting}
+    \endgroup
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Libraries Example}
+    \begingroup
+    \scriptsize
+    \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+    export LD_LIBRARY_PATH=/some/path/codes/lib.2/:$LD_LIBRARY_PATH
+    \end{lstlisting}
+    \endgroup
+
+    \begin{itemize}
+        \item \code{\scriptsize export} : makes variable propagate to daughter shell's
+        \pause
+        \bigskip
+        \item \code{\scriptsize \$LD\_LIBRARY\_PATH} : at end so we don't lose other libs we care about
+        \pause
+        \bigskip
+        \item \code{\scriptsize /some/path/codes/lib.2/} : prepended because the first lib found is used
+    \end{itemize}
+\end{frame}
+
+
+
+% Include slides on .bashrc / .profile
+\begin{frame}
+\frametitle{.bashrc and .profile}
+\begin{itemize}
+
+
+\end{itemize}
+\end{frame}
+
 
 
 

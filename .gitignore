@@ -8,3 +8,7 @@ Bash_Environment.snm
 Bash_Environment.toc
 Bash_Environment.vrb
 images/
+program
+*.so.*
+*.so
+*.o
