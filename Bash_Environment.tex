@@ -1,0 +1,191 @@
+% Compile by directly running 
+%   pdflatex Slurm_Intro.tex 
+%
+%
+%
+%
+%
+
+
+
+
+\documentclass{beamer}
+\usetheme{Copenhagen}
+\usepackage[utf8]{inputenc}
+
+
+%\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{multimedia}
+\usepackage{times}  % fonts are up to you
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{media9}
+\usepackage{hyperref}
+\usepackage{psfrag}
+\usepackage{pdfpages}
+\usepackage{listings}
+
+
+\setbeamertemplate{bibliography item}[text]
+\newcommand{\customcite}[1]{\citeauthor{#1}, \citeyear{#1}}
+\newcommand\smallFont{\fontsize{8}{7.2}\selectfont}   %Change font size.
+\newcommand\mCite[1]{[\cite{#1}, \citetitle{#1}]}  %Prints name and title
+\newcommand\FrameText[1]{
+\begin{textblock*}{\paperwidth}(0pt,\textheight)
+	\vspace{1.0cm}
+    \raggedleft \smallFont #1
+\end{textblock*}}
+
+%Get rid of ugly copenhagen default symbol for enumerate
+\setbeamertemplate{enumerate items}[default]   
+
+
+% Create code text
+% https://tex.stackexchange.com/questions/65291/code-snippet-in-text
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
+
+
+%Information to be included in the title page:
+\title{Bash Environment and Managing Software}
+\author{Ali Snedden}
+\institute{Nationwide Children's Hospital}
+\date{May 3, 2019}
+ 
+ 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+
+
+
+
+\begin{frame}
+\frametitle{How to Connect}
+Windows:
+\begin{itemize}
+    \item Open PuTTY
+    \item Window Session $\Rightarrow$ Host Name field : username@10.70.250.101
+    \item Click ``Open" to log in.
+    \item Enter password
+\end{itemize}
+
+Mac:
+\begin{itemize}
+    \item Open Terminal (Finder $\Rightarrow$ Utilities $\Rightarrow$ Terminal)
+    \item \code{ssh -X username@10.70.250.101}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Bash}
+\begin{itemize}
+    \item Environmental variables control what commands/libraries are available
+    \pause
+    \item E.g.
+    \pause
+    \begin{enumerate}
+        \item \code{PATH} : Location shell looks for commands / executables
+        \pause
+            \begin{itemize}
+                \item Try : \code{echo \$PATH}
+            \end{itemize}
+        \pause
+        \item \code{LD\_LIBRARY\_PATH} : Where shell looks for shared libraries.
+            \begin{itemize}
+                \item Try : \code{echo \$LD\_LIBRARY\_PATH}
+            \end{itemize}
+        \pause
+        \item \code{PYTHONPATH} : Location python looks for modules (libraries).
+            \begin{itemize}
+                \item Try : \code{echo \$PYTHONPATH}
+            \end{itemize}
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Modules}
+\begin{itemize}
+    \item We use modules to manage software on Baker.
+    \pause
+    \item \code{module load python/3.6.5}
+    \pause
+    \begin{itemize}
+        \item \code{echo \$PATH}
+        \pause
+        \item \code{echo \$LD\_LIBRARY\_PATH}
+        \pause
+        \item \code{echo \$PYTHONPATH}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Modules}
+\begin{itemize}
+    \item Look at \code{/act/modulefiles/python/3.6.5}
+    \pause
+    \item Notice how \code{PATH}, \code{LD\_LIBRARY\_PATH}, \code{PYTHONPATH} are pre-pended.
+    \pause
+    \item \code{which python}
+    \pause
+    \item \code{module purge}
+    \pause
+    \item Check how \code{PATH}, \code{LD\_LIBRARY\_PATH}, \code{PYTHONPATH} change.
+    \pause
+    \item \code{which python}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python}
+With the system python (\code{/usr/bin/python}):
+\begingroup
+\tiny
+\begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+$ python
+Python 2.7.15 (default, May  1 2018, 16:44:08)
+[GCC 4.2.1 Compatible Apple LLVM 9.1.0 (clang-902.0.39.1)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+<built-in method format of str object at 0x106ac2588>
+>>> import numpy as np
+>>> np.__file__
+'/usr/local/lib/python2.7/site-packages/numpy/__init__.pyc'
+>>> exit()
+\end{lstlisting}
+\endgroup
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python}
+With the system python module :
+\begingroup
+\tiny
+\begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+$ module load python/3.6.5
+$ python
+Python 2.7.15 (default, May  1 2018, 16:44:08)
+[GCC 4.2.1 Compatible Apple LLVM 9.1.0 (clang-902.0.39.1)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+<built-in method format of str object at 0x106ac2588>
+>>> import numpy as np
+>>> np.\_\_file\_\_
+'/usr/local/lib/python2.7/site-packages/numpy/__init__.pyc'
+>>> exit()
+\end{lstlisting}
+\endgroup
+\end{frame}
+
+
+\end{document}
