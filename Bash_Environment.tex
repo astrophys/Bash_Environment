@@ -91,24 +91,27 @@ Mac:
     \pause
     \begin{enumerate}
         \item \code{PATH} : Location shell looks for commands / executables
-        \pause
             \begin{itemize}
                 \item Try : \code{echo \$PATH}
             \end{itemize}
         \pause
+        \bigskip
         \item \code{LD\_LIBRARY\_PATH} : Where shell looks for shared libraries.
             \begin{itemize}
                 \item Try : \code{echo \$LD\_LIBRARY\_PATH}
             \end{itemize}
         \pause
+        \bigskip
         \item \code{PYTHONPATH} : Location python looks for modules (libraries).
             \begin{itemize}
                 \item Try : \code{echo \$PYTHONPATH}
             \end{itemize}
+    \pause
+    \bigskip
+    \item See all environmental variables try : \code{env | less}
     \end{enumerate}
 \end{itemize}
 \end{frame}
-
 
 
 \begin{frame}
@@ -116,76 +119,113 @@ Mac:
 \begin{itemize}
     \item We use modules to manage software on Baker.
     \pause
-    \item \code{module load python/3.6.5}
+    \bigskip
+    \item Try:
     \pause
     \begin{itemize}
-        \item \code{echo \$PATH}
+        \item \code{module avail}
+        \bigskip
         \pause
-        \item \code{echo \$LD\_LIBRARY\_PATH}
+        \item \code{module load python/3.6.5}  Can put any module here
+        \bigskip
         \pause
-        \item \code{echo \$PYTHONPATH}
+        \item \code{module list}
+        \bigskip
+        \pause
+        \item \code{module purge}
     \end{itemize}
 \end{itemize}
 \end{frame}
 
 
+
 \begin{frame}
-\frametitle{Modules}
+\frametitle{Python Example}
 \begin{itemize}
     \item Look at \code{/act/modulefiles/python/3.6.5}
     \pause
-    \item Notice how \code{PATH}, \code{LD\_LIBRARY\_PATH}, \code{PYTHONPATH} are pre-pended.
+    \item Notice how \code{PATH} and \code{PYTHONPATH} are pre-pended.
     \pause
-    \item \code{which python}
-    \pause
-    \item \code{module purge}
-    \pause
-    \item Check how \code{PATH}, \code{LD\_LIBRARY\_PATH}, \code{PYTHONPATH} change.
-    \pause
-    \item \code{which python}
+    \item Try:
+    \begin{itemize}
+        \item \code{which python}
+        \pause
+        \item \code{module purge}
+        \pause
+        \item Check how \code{PATH}, \code{PYTHONPATH} change.
+        \pause
+        \item \code{which python}
+    \end{itemize}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}[fragile]
-\frametitle{Python}
+\frametitle{Python Example}
 With the system python (\code{/usr/bin/python}):
 \begingroup
-\tiny
+\scriptsize
 \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
+$ module purge
 $ python
-Python 2.7.15 (default, May  1 2018, 16:44:08)
-[GCC 4.2.1 Compatible Apple LLVM 9.1.0 (clang-902.0.39.1)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-<built-in method format of str object at 0x106ac2588>
->>> import numpy as np
->>> np.__file__
-'/usr/local/lib/python2.7/site-packages/numpy/__init__.pyc'
+Python 2.6.6 (r266:84292, Aug 18 2016, 15:13:37)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-17)] on linux2
+Type "help", "copyright", "credits" or "license" for more info
+>>> import numpy
+>>> numpy.__file__
+'/usr/lib64/python2.6/site-packages/numpy/__init__.pyc'
 >>> exit()
+%$ echo $PYTHONPATH
+%
 \end{lstlisting}
 \endgroup
 \end{frame}
 
 
 \begin{frame}[fragile]
-\frametitle{Python}
-With the system python module :
+\frametitle{Python Example}
+With the system python/3.6.5 module :
 \begingroup
-\tiny
+\scriptsize
 \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
 $ module load python/3.6.5
+License File : see https://docs.anaconda.com/
 $ python
-Python 2.7.15 (default, May  1 2018, 16:44:08)
-[GCC 4.2.1 Compatible Apple LLVM 9.1.0 (clang-902.0.39.1)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-<built-in method format of str object at 0x106ac2588>
->>> import numpy as np
->>> np.\_\_file\_\_
-'/usr/local/lib/python2.7/site-packages/numpy/__init__.pyc'
+Python 3.6.5 |Anaconda, Inc.| (default, Apr 29 2018, 16:14:56)
+[GCC 7.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more info
+>>> import numpy
+>>> numpy.__file__
+'/opt/python/3.6.5/lib/python3.6/site-packages/numpy/__init__.py'
 >>> exit()
+%$ echo $PYTHONPATH
+%/opt/python/3.6.5/additional_packages/plotly/lib/python3.6/site-packages:
+%/opt/python/3.6.5/additional_packages/pysam/lib/python3.6/site-packages:
+%/opt/python/3.6.5/lib/python3.6/site-packages
 \end{lstlisting}
 \endgroup
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Python Example}
+\begin{itemize}
+    \item Notice when using \code{python/3.6.5} module, numpy is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
+    \pause
+    \item
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Python}
+\begin{itemize}
+    \item Notice when using \code{python/3.6.5} module, numpy is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
+    \pause
+    \item
+\end{itemize}
+\end{frame}
+
 
 
 \end{document}
