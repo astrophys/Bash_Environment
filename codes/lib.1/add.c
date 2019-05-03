@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "headers.h"
 int add(int a, int b){
-    print("Hello from add() in lib.1");
+    printf("Hello from add() in lib.1\n");
     return(a + b);
 }
