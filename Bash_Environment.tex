@@ -201,7 +201,7 @@ Type "help", "copyright", "credits" or "license" for more info
 
 \begin{frame}[fragile]
 \frametitle{Python Example}
-With the system python/3.6.5 module :
+With the \code{python/3.6.5} module :
 \begingroup
 \scriptsize
 \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
@@ -223,7 +223,7 @@ Type "help", "copyright", "credits" or "license" for more info
 \begin{frame}
 \frametitle{Python Example}
 \begin{itemize}
-    \item Notice when using \code{python/3.6.5} module, numpy is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
+    \item Notice when using \code{python/3.6.5} module, \code{numpy} is located within the directory \code{/opt/python/3.6.5/lib/python3.6/site-packages} specified in \code{PYTHONPATH} 
     \bigskip
     \pause
     \item Many different software utilize environmental variables in a fashion like Python does.
@@ -314,7 +314,7 @@ Type "help", "copyright", "credits" or "license" for more info
     #include <stdio.h>
     #include "headers.h"
     int add(int a, int b){
-        print("Hello from add() in lib.1");
+        printf("Hello from add() in lib.1\n");
         return(a + b);
     }
     \end{lstlisting}
@@ -328,7 +328,7 @@ Type "help", "copyright", "credits" or "license" for more info
     #include <stdio.h>
     #include "headers.h"
     int subtract(int a, int b){
-        print("Hello from subtract() in lib.1");
+        printf("Hello from subtract() in lib.1\n");
         return(a - b);
     }
     \end{lstlisting}
@@ -406,7 +406,9 @@ Type "help", "copyright", "credits" or "license" for more info
     \tiny
     \begin{lstlisting}[backgroundcolor = \color{codegray}, language = Bash, showstringspaces=false]
     $ ./program
+    Hello from add() in lib.2
     9 + 2 = 11
+    Hello from subtract() in lib.2
     9 - 2 = 7
     \end{lstlisting}
     \endgroup
