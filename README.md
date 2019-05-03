@@ -7,10 +7,10 @@ It is directed at users with minimal Linux experience.
 
 ## Topics
 This presentation covers : 
-    1. environmental variables and their usage in managing software.
-        a) Focuses primarily on PATH`, `PYTHONPATH` and `LD_LIBRARY_PATH`. 
-    #. Modules
-        a) Show's how modules change the environmental variable
-    #. Libraries
-        a) Does an example to illustrate how shared libraries work and how to use `LD_LIBRARY_PATH`. 
-    #. Startup scripts like `.bashrc` and `.profile`
+1. environmental variables and their usage in managing software.
+..a) Focuses primarily on PATH`, `PYTHONPATH` and `LD_LIBRARY_PATH`. 
+2. Modules
+..a) Show's how modules change the environmental variable
+3. Libraries
+..a) Does an example to illustrate how shared libraries work and how to use `LD_LIBRARY_PATH`. 
+4. Startup scripts like `.bashrc` and `.profile`
