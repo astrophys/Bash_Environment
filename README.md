@@ -8,7 +8,7 @@ It is directed at users with minimal Linux experience.
 ## Topics
 This presentation covers : 
 1. Environmental variables and their usage in managing software.
-    * Focuses primarily on PATH`, `PYTHONPATH` and `LD_LIBRARY_PATH`. 
+    * Focuses primarily on `PATH`, `PYTHONPATH` and `LD_LIBRARY_PATH`. 
 2. Modules
     * Show's how modules change the environmental variable
 3. Libraries
