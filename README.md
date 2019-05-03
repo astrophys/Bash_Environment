@@ -14,3 +14,6 @@ This presentation covers :
 3. Libraries
     * Does an example to illustrate how shared libraries work and how to use `LD_LIBRARY_PATH`. 
 4. Startup scripts like `.bashrc` and `.profile`
+
+## Compile
+`pdflatex Bash_Environment.tex`
